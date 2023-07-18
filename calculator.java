@@ -15,15 +15,6 @@ public class calculator {
         public double getOpernad2(){
             return operand2;
         }
-
-        public void setOpernad1(double operand1){
-            this.operand1=operand1;
-        }
-
-        public void setOpernad2(double operand2){
-            this.operand2=operand2;
-        }
-
         public double add(){
             return operand1+operand2;
         }
@@ -80,6 +71,7 @@ public class calculator {
                 }
 
             }
+            scanner.close();
         }
 
 }
