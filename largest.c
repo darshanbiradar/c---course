@@ -10,6 +10,7 @@ int main(){
     int a,b;
     printf("Enter the 2 numbers");
     scanf("%d %d",&a,&b);
+    
     printf("biggest number is ");
     bigger(&a,&b);
 return 0;
