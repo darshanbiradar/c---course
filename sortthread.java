@@ -294,7 +294,7 @@ public class sortthread implements ActionListener {
                 f.getContentPane().add(result);
                 f.repaint();
             }
-        } else {
+        } else if(threadbox.getSelectedIndex()==2){
             if (sortBox.getSelectedIndex() == 0) {
                 list = new linkedlist[21];
                 list1 = new linkedlist[21];
