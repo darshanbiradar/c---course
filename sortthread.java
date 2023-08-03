@@ -81,7 +81,7 @@ public class sortthread implements ActionListener {
 
         Table = new JTable(rTable);
         Table.setCellSelectionEnabled(true);
-        ExcelAdapter myAd = new ExcelAdapter(Table);
+        // ExcelAdapter myAd = new ExcelAdapter(Table);
         result.add(Table);
         JScrollPane pane = new JScrollPane(Table);
         pane.setBounds(10, 40, 280, 370);
