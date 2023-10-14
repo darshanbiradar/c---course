@@ -1,40 +1,52 @@
-#include<stdio.h>
-#include<stdbool.h>
-void dfs(int a[][10],int vertex,bool visited[],int n){
+#include <stdio.h>
+#include <stdbool.h>
+#define MAX_VERTICES 100
+void dfs(int graph[MAX_VERTICES][MAX_VERTICES], int visited[MAX_VERTICES], int vertex, int num_vertices, bool* is_acyclic) {
+    int i;
+    visited[vertex] = 1;
     printf("%d ",vertex+1);
-    visited[vertex]=true;
-
-    for(int i=0;i<n;i++){
-        if(a[vertex][i]==1 && !visited[i]){
-            dfs(a,i,visited,n);
+    for (i = 0; i < num_vertices; i++) {
+        if (graph[vertex][i] == 1) {
+            if (visited[i] == 0) {
+                dfs(graph, visited, i, num_vertices, is_acyclic);
+            } else if (visited[i] == 1) {
+                *is_acyclic = false; 
+                return;
+            }
         }
     }
+    visited[vertex] = 2;
 }
-void initialize(bool a[],int n){
-    for(int i=0;i<n;i++){
-        a[i]=false;
+bool isAcyclic(int graph[MAX_VERTICES][MAX_VERTICES], int num_vertices) {
+    int visited[MAX_VERTICES] = {0};
+    bool is_acyclic = true;
+    int i; 
+    for (i = 0; i < num_vertices; i++) {
+        if (visited[i] == 0) {
+            dfs(graph, visited, i, num_vertices, &is_acyclic);
+            if (!is_acyclic) {
+                return false;
+            }
+        }
     }
+    return true;
 }
-int main(){
-    int n;
-    printf("Enter the Number of vertices :");
-    scanf("%d",&n);
-    int a[n][n];
-    // m=n;
-    for(int i=0;i<n;i++){
-        for( int j=0;j<n;j++){
-            printf("Enter the connection from %d to %d (1 if connection else 0):",i+1,j+1);
-            scanf("%d",&a[i][j]);
+int main() {
+    int num_vertices;
+    printf("Enter the number of vertices: ");
+    scanf("%d", &num_vertices);
+    int graph[MAX_VERTICES][MAX_VERTICES] = {0};
+    printf("Enter the adjacency matrix for the graph:\n");
+    int i, j; 
+    for (i = 0; i < num_vertices; i++) {
+        for (j = 0; j < num_vertices; j++) {
+            scanf("%d", &graph[i][j]);
         }
     }
-    bool visited[n];
-    initialize(visited,n);
-    printf("DFS Traversal: ");
-    for(int i=0;i<n;i++){
-        if(!visited[i]){
-            dfs(a,i,visited,n);
-        }
+    if (isAcyclic(graph, num_vertices)) {
+        printf("The graph is acyclic.\n");
+    } else {
+        printf("The graph has a cycle.\n");
     }
-    printf("\n");
-return 0;
+    return 0;
 }
